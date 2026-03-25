@@ -1,3 +1,5 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import { and, count, eq } from "drizzle-orm";
 import type { Db } from "@paperclipai/db";
 import {
@@ -5,12 +7,50 @@ import {
   agents,
   companyMemberships,
   instanceUserRoles,
+  authUsers,
 } from "@paperclipai/db";
 import { logger } from "../middleware/logger.js";
+import { resolveProjectRoot, resolveAgentInstructionsDir } from "../home-paths.js";
+import { loadDefaultAgentInstructionsBundle } from "./default-agent-instructions.js";
 
 export interface BootstrapResult {
   action: "created_company" | "assigned_to_company" | "noop";
   companyId?: string;
+}
+
+async function materializeInstructions(role: string): Promise<string | null> {
+  const projectRoot = resolveProjectRoot();
+  if (!projectRoot) return null;
+
+  let instructionsDir: string;
+  try {
+    instructionsDir = resolveAgentInstructionsDir(role);
+  } catch {
+    return null;
+  }
+
+  // Idempotent: skip if already exists
+  try {
+    await fs.access(instructionsDir);
+    return instructionsDir;
+  } catch {
+    // Directory doesn't exist, create it
+  }
+
+  const bundleRole = role === "ceo" ? "ceo" : "default";
+  const bundle = await loadDefaultAgentInstructionsBundle(bundleRole as "ceo" | "default");
+
+  await fs.mkdir(instructionsDir, { recursive: true });
+  for (const [fileName, content] of Object.entries(bundle)) {
+    await fs.writeFile(path.join(instructionsDir, fileName), content, "utf8");
+  }
+
+  logger.info(
+    { role, instructionsDir, files: Object.keys(bundle) },
+    "Materialized default agent instructions to project",
+  );
+
+  return instructionsDir;
 }
 
 export function bootstrapService(db: Db) {
@@ -82,7 +122,7 @@ export function bootstrapService(db: Db) {
     const companyName =
       process.env.PAPERCLIP_DEFAULT_COMPANY_NAME || "My Company";
     const agentName =
-      process.env.PAPERCLIP_DEFAULT_AGENT_NAME || "Assistant";
+      process.env.PAPERCLIP_DEFAULT_AGENT_NAME || "CEO Agent";
 
     // Create company
     const [company] = await db
@@ -109,6 +149,12 @@ export function bootstrapService(db: Db) {
       });
     }
 
+    // Set role on authUsers table
+    await db
+      .update(authUsers)
+      .set({ role: "superadmin" })
+      .where(eq(authUsers.id, userId));
+
     // Assign user as owner
     await db.insert(companyMemberships).values({
       companyId: company.id,
@@ -118,12 +164,31 @@ export function bootstrapService(db: Db) {
       membershipRole: "owner",
     });
 
-    // Create default agent
+    // Materialize CEO instructions to project-local agents/ceo/
+    const instructionsDir = await materializeInstructions("ceo");
+    const projectRoot = resolveProjectRoot();
+    const ceoCommand = process.env.PAPERCLIP_CEO_COMMAND || "claude";
+
+    // Build adapterConfig for claude-local
+    const adapterConfig: Record<string, unknown> = {};
+    adapterConfig.command = ceoCommand;
+    if (projectRoot) {
+      adapterConfig.cwd = projectRoot;
+    }
+    if (instructionsDir) {
+      adapterConfig.instructionsBundleMode = "external";
+      adapterConfig.instructionsRootPath = instructionsDir;
+      adapterConfig.instructionsEntryFile = "AGENTS.md";
+    }
+
+    // Create default CEO agent
     await db.insert(agents).values({
       companyId: company.id,
       name: agentName,
-      role: "general",
+      role: "ceo",
+      title: "Chief Executive Officer",
       adapterType: "claude-local",
+      adapterConfig,
     });
 
     logger.info(

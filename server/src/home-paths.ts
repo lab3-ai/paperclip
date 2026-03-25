@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
@@ -54,11 +55,53 @@ export function resolveDefaultBackupDir(): string {
   return path.resolve(resolvePaperclipInstanceRoot(), "data", "backups");
 }
 
+let _cachedProjectRoot: string | null | undefined;
+
+export function resolveProjectRoot(): string | null {
+  if (_cachedProjectRoot !== undefined) return _cachedProjectRoot;
+
+  let dir = process.cwd();
+  const root = path.parse(dir).root;
+
+  while (dir !== root) {
+    const configPath = path.join(dir, ".paperclip", "config.json");
+    if (fs.existsSync(configPath)) {
+      _cachedProjectRoot = dir;
+      return dir;
+    }
+    dir = path.dirname(dir);
+  }
+
+  _cachedProjectRoot = null;
+  return null;
+}
+
+export function resetProjectRootCache(): void {
+  _cachedProjectRoot = undefined;
+}
+
+export function resolveAgentInstructionsDir(role: string): string {
+  const projectRoot = resolveProjectRoot();
+  if (!projectRoot) {
+    throw new Error("No project root found (no .paperclip/config.json in ancestor directories)");
+  }
+  return path.resolve(projectRoot, "agents", role);
+}
+
 export function resolveDefaultAgentWorkspaceDir(agentId: string): string {
   const trimmed = agentId.trim();
   if (!PATH_SEGMENT_RE.test(trimmed)) {
     throw new Error(`Invalid agent id for workspace path '${agentId}'.`);
   }
+
+  // Prefer project-local workspace when not in production (no PAPERCLIP_HOME set)
+  if (!process.env.PAPERCLIP_HOME?.trim()) {
+    const projectRoot = resolveProjectRoot();
+    if (projectRoot) {
+      return path.resolve(projectRoot, ".paperclip", "workspaces", trimmed);
+    }
+  }
+
   return path.resolve(resolvePaperclipInstanceRoot(), "workspaces", trimmed);
 }
 

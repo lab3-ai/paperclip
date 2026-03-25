@@ -1,5 +1,6 @@
 import type { Request } from "express";
 import { forbidden, unauthorized } from "../errors.js";
+import { hasRolePermission, type UserRole } from "@paperclipai/shared";
 
 export function assertBoard(req: Request) {
   if (req.actor.type !== "board") {
@@ -27,6 +28,23 @@ export function assertCompanyAccess(req: Request, companyId: string) {
     if (!allowedCompanies.includes(companyId)) {
       throw forbidden("User does not have access to this company");
     }
+  }
+}
+
+export function requirePermission(req: Request, permission: string) {
+  // local_trusted mode bypasses RBAC
+  if (req.actor.source === "local_implicit") return;
+
+  // Agent actors use assertCompanyAccess, not RBAC
+  if (req.actor.type === "agent") return;
+
+  // Must be a board actor
+  if (req.actor.type !== "board") {
+    throw forbidden("Board access required");
+  }
+
+  if (!hasRolePermission(req.actor.role as UserRole, permission)) {
+    throw forbidden("Insufficient permissions");
   }
 }
 

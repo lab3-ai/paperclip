@@ -352,6 +352,84 @@ export const PERMISSION_KEYS = [
 export type PermissionKey = (typeof PERMISSION_KEYS)[number];
 
 // ---------------------------------------------------------------------------
+// RBAC — Role-based access control
+// ---------------------------------------------------------------------------
+
+export const USER_ROLES = ["superadmin", "admin", "user", "guest"] as const;
+export type UserRole = (typeof USER_ROLES)[number];
+
+/** Fixed permission map — each role's allowed actions. */
+export const ROLE_PERMISSIONS: Record<UserRole, readonly string[]> = {
+  superadmin: [
+    "company:create", "company:read", "company:update", "company:delete",
+    "users:create", "users:read", "users:update", "users:delete",
+    "users:assign_role",
+    "agents:create", "agents:read", "agents:update", "agents:delete",
+    "plugins:install", "plugins:remove",
+    "issues:create", "issues:read", "issues:update", "issues:delete",
+    "skills:create", "skills:read", "skills:update", "skills:delete",
+    "tasks:assign",
+    "approvals:read", "approvals:create", "approvals:approve", "approvals:reject",
+    "goals:create", "goals:read", "goals:update", "goals:delete",
+    "projects:create", "projects:read", "projects:update", "projects:delete",
+    "routines:create", "routines:read", "routines:update", "routines:delete",
+    "secrets:create", "secrets:read", "secrets:update", "secrets:delete",
+    "budgets:read", "budgets:update",
+    "instance:read", "instance:update",
+    "activity:read",
+  ],
+  admin: [
+    "company:read", "company:update",
+    "users:create", "users:read", "users:update", "users:delete",
+    "users:assign_role",
+    "agents:create", "agents:read", "agents:update", "agents:delete",
+    "plugins:install", "plugins:remove",
+    "issues:create", "issues:read", "issues:update", "issues:delete",
+    "skills:create", "skills:read", "skills:update", "skills:delete",
+    "tasks:assign",
+    "approvals:read", "approvals:create", "approvals:approve", "approvals:reject",
+    "goals:create", "goals:read", "goals:update", "goals:delete",
+    "projects:create", "projects:read", "projects:update", "projects:delete",
+    "routines:create", "routines:read", "routines:update", "routines:delete",
+    "secrets:create", "secrets:read", "secrets:update", "secrets:delete",
+    "budgets:read", "budgets:update",
+    "activity:read",
+  ],
+  user: [
+    "company:read",
+    "users:read",
+    "agents:create", "agents:read", "agents:update", "agents:delete",
+    "plugins:install", "plugins:remove",
+    "issues:create", "issues:read", "issues:update", "issues:delete",
+    "skills:create", "skills:read", "skills:update", "skills:delete",
+    "tasks:assign",
+    "approvals:read", "approvals:create",
+    "goals:read",
+    "projects:read",
+    "routines:read",
+    "budgets:read",
+    "activity:read",
+  ],
+  guest: [
+    "company:read",
+    "users:read",
+    "agents:read",
+    "issues:read",
+    "skills:read",
+    "approvals:read",
+    "goals:read",
+    "projects:read",
+    "routines:read",
+    "activity:read",
+  ],
+} as const;
+
+/** Check if a role has a specific permission. */
+export function hasRolePermission(role: UserRole, permission: string): boolean {
+  return ROLE_PERMISSIONS[role]?.includes(permission) ?? false;
+}
+
+// ---------------------------------------------------------------------------
 // Plugin System — see doc/plugins/PLUGIN_SPEC.md for the full specification
 // ---------------------------------------------------------------------------
 
