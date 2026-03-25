@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "a1a947a68a79",
+  "session_id": "22c58f99-bd1e-462b-817f-b8500163892c",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-25T17:36:52.59456Z",
+  "branch": "develop",
+  "checkpoints_count": 14,
+  "files_touched": [
+    ".claude/settings.json",
+    ".gitignore",
+    "docs/superpowers/plans/2026-03-25-project-local-agent-paths.md",
+    "docs/superpowers/specs/2026-03-25-project-local-agent-paths-design.md",
+    "packages/db/src/migrations/0045_bright_lila_cheney.sql",
+    "packages/db/src/migrations/meta/0045_snapshot.json",
+    "packages/db/src/migrations/meta/_journal.json",
+    "server/src/__tests__/home-paths.test.ts",
+    "server/src/home-paths.ts",
+    "server/src/services/bootstrap.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "53c55834d1de",
+  "token_usage": {
+    "input_tokens": 508,
+    "cache_creation_tokens": 121113,
+    "cache_read_tokens": 6083626,
+    "output_tokens": 30248,
+    "api_call_count": 79
+  },
+  "session_metrics": {
+    "turn_count": 14
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-25T17:36:52.118091Z",
+    "agent_lines": 0,
+    "human_added": 85797,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 85797,
+    "agent_percentage": 0
+  }
+}
