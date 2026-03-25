@@ -27,6 +27,7 @@ import { loadConfig } from "./config.js";
 import { logger } from "./middleware/logger.js";
 import { setupLiveEventsWebSocketServer } from "./realtime/live-events-ws.js";
 import { heartbeatService, reconcilePersistedRuntimeServicesOnStartup, routineService } from "./services/index.js";
+import { bootstrapService } from "./services/bootstrap.js";
 import { createStorageServiceFromConfig } from "./storage/index.js";
 import { printStartupBanner } from "./startup-banner.js";
 import { getBoardClaimWarningUrl, initializeBoardClaimChallenge } from "./board-claim.js";
@@ -473,6 +474,24 @@ export async function startServer(): Promise<StartedServer> {
     resolveSessionFromHeaders = (headers) => resolveBetterAuthSessionFromHeaders(auth, headers);
     await initializeBoardClaimChallenge(db as any, { deploymentMode: config.deploymentMode });
     authReady = true;
+
+    // Auto-bootstrap: wrap resolveSession to bootstrap user on first login
+    const bootstrap = bootstrapService(db as any);
+    const originalResolveSession = resolveSession!;
+    resolveSession = async (req) => {
+      const session = await originalResolveSession(req);
+      if (session?.user?.id) {
+        try {
+          await bootstrap.maybeBootstrapUser(
+            session.user.id,
+            session.user.name,
+          );
+        } catch (err) {
+          logger.warn({ err, userId: session.user.id }, "Bootstrap check failed (non-fatal)");
+        }
+      }
+      return session;
+    };
   }
   
   const listenPort = await detectPort(config.port);

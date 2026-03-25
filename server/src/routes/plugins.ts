@@ -139,6 +139,30 @@ const BUNDLED_PLUGIN_EXAMPLES: AvailablePluginExample[] = [
     localPath: "packages/plugins/examples/plugin-kitchen-sink-example",
     tag: "example",
   },
+  {
+    packageName: "@lab3-ai/plugin-x-scanner",
+    pluginKey: "lab3-ai.plugin-x-scanner",
+    displayName: "X Post Scanner",
+    description: "Scans X (Twitter) posts from configured members via RapidAPI and saves to Supabase",
+    localPath: "packages/plugins/examples/plugin-x-scanner",
+    tag: "example",
+  },
+  {
+    packageName: "@lab3-ai/plugin-polymarket-scanner",
+    pluginKey: "lab3-ai.plugin-polymarket-scanner",
+    displayName: "Polymarket Scanner",
+    description: "Scans Polymarket via Gamma API, uses AI to analyze relevance, and triggers notifications",
+    localPath: "packages/plugins/examples/plugin-polymarket-scanner",
+    tag: "example",
+  },
+  {
+    packageName: "@lab3-ai/plugin-telegram-notifier",
+    pluginKey: "lab3-ai.plugin-telegram-notifier",
+    displayName: "Telegram Notifier",
+    description: "Sends Polymarket alerts to a Telegram group via bot",
+    localPath: "packages/plugins/examples/plugin-telegram-notifier",
+    tag: "example",
+  },
 ];
 
 function listBundledPluginExamples(): AvailablePluginExample[] {
