@@ -1,0 +1,21 @@
+<ide_opened_file>The user opened the file /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/.claude/settings.json in the IDE. This may or may not be related to the current task.</ide_opened_file>
+Ngày trước, khi trao quyền (permission) cho claude thực hiện 1 command thì sẽ được lưu vào setting.local.json
+tại sao bây h lưu vào settings.json?
+TÔi muốn biết lí do gốc, vì nhiều dự án cũng đang bị vậy? không biết do setup hay gì? cần config ở đâu để apply cho toàn bộ?
+
+---
+
+<ide_opened_file>The user opened the file /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/.claude/settings.json in the IDE. This may or may not be related to the current task.</ide_opened_file>
+Project này đang có 2 file settings.json và settings.local.json
+và khi khi prompt
+claude sẽ hỏi tôi 3 options
+1. Yes
+2. Allow this project
+3. NO
+khi click 2 thì sẽ ghi vào file settings.json, tôi không thích điều này.
+
+---
+
+có vẻ allow ở extension sẽ lưu vào settings.json, allow ở terminal lưu vào settings.local.json?
+vậy bạn hãy move từ manual từ settings.json qua settings.local.json nhé
+tôi sẽ tính sau
