@@ -1,5 +1,12 @@
 {
   "permissions": {
+    "allow": [
+      "Bash(node -e \":*)",
+      "Bash(npm view:*)",
+      "Bash(mkdir -p /tmp/test-plugin-install)",
+      "Read(//tmp/**)",
+      "Bash(npm install:*)"
+    ],
     "deny": [
       "Read(./.entire/metadata/**)"
     ]

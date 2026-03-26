@@ -22,6 +22,13 @@ COPY packages/adapters/openclaw-gateway/package.json packages/adapters/openclaw-
 COPY packages/adapters/opencode-local/package.json packages/adapters/opencode-local/
 COPY packages/adapters/pi-local/package.json packages/adapters/pi-local/
 COPY packages/plugins/sdk/package.json packages/plugins/sdk/
+COPY packages/plugins/examples/plugin-hello-world-example/package.json packages/plugins/examples/plugin-hello-world-example/
+COPY packages/plugins/examples/plugin-kitchen-sink-example/package.json packages/plugins/examples/plugin-kitchen-sink-example/
+COPY packages/plugins/examples/plugin-file-browser-example/package.json packages/plugins/examples/plugin-file-browser-example/
+COPY packages/plugins/examples/plugin-authoring-smoke-example/package.json packages/plugins/examples/plugin-authoring-smoke-example/
+COPY packages/plugins/examples/plugin-x-scanner/package.json packages/plugins/examples/plugin-x-scanner/
+COPY packages/plugins/examples/plugin-polymarket-scanner/package.json packages/plugins/examples/plugin-polymarket-scanner/
+COPY packages/plugins/examples/plugin-telegram-notifier/package.json packages/plugins/examples/plugin-telegram-notifier/
 
 RUN pnpm install --frozen-lockfile
 
@@ -32,6 +39,7 @@ COPY . .
 RUN pnpm --filter @paperclipai/ui build
 RUN pnpm --filter @paperclipai/plugin-sdk build
 RUN pnpm --filter @paperclipai/server build
+RUN pnpm --filter './packages/plugins/examples/**' build
 RUN test -f server/dist/index.js || (echo "ERROR: server build output missing" && exit 1)
 
 FROM base AS production
