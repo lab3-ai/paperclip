@@ -199,5 +199,57 @@ export function bootstrapService(db: Db) {
     return { action: "created_company", companyId: company.id };
   }
 
-  return { maybeBootstrapUser };
+  /**
+   * Seed the superadmin user on server startup.
+   * Idempotent: skips if user with the given email already exists.
+   */
+  async function seedSuperadmin(
+    email: string,
+    password: string,
+    hashPassword: (pw: string) => Promise<string>,
+  ): Promise<void> {
+    // Check if user already exists
+    const [existing] = await db
+      .select({ id: authUsers.id })
+      .from(authUsers)
+      .where(eq(authUsers.email, email));
+
+    if (existing) {
+      logger.info({ email }, "Superadmin already exists, skipping seed");
+      return;
+    }
+
+    const { randomUUID } = await import("node:crypto");
+    const userId = randomUUID();
+    const hashedPassword = await hashPassword(password);
+
+    // Create the user
+    await db.insert(authUsers).values({
+      id: userId,
+      name: "Super Admin",
+      email,
+      role: "superadmin",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    // Create account entry for email/password auth
+    const { authAccounts } = await import("@paperclipai/db");
+    await db.insert(authAccounts).values({
+      id: randomUUID(),
+      accountId: userId,
+      providerId: "credential",
+      userId,
+      password: hashedPassword,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    // Run the standard bootstrap (company + CEO agent + instance_admin)
+    await createDefaultSetup(userId, "Super Admin");
+
+    logger.info({ email, userId }, "Seeded superadmin user on startup");
+  }
+
+  return { maybeBootstrapUser, seedSuperadmin };
 }

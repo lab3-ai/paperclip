@@ -23,7 +23,8 @@
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_take_screenshot",
       "Bash(psql postgres://paperclip:paperclip@localhost:5432/paperclip -c \":*)",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Bash(find . -path ./node_modules -prune -o -name \"*.ts\" -type f -exec grep -l \"betterAuth\\\\|better-auth\" {})"
     ],
     "deny": [
       "Read(./.entire/metadata/**)"

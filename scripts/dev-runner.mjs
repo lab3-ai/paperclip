@@ -1,11 +1,28 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 import { fileURLToPath } from "node:url";
 import { shouldTrackDevServerPath } from "./dev-runner-paths.mjs";
+
+// Load .env file if it exists (without overriding existing env vars)
+const __dev_dirname = path.dirname(fileURLToPath(import.meta.url));
+const dotenvPath = path.resolve(__dev_dirname, "..", ".env");
+if (existsSync(dotenvPath)) {
+  for (const line of readFileSync(dotenvPath, "utf-8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx < 0) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const val = trimmed.slice(eqIdx + 1).trim().replace(/^["']|["']$/g, "");
+    if (process.env[key] === undefined) {
+      process.env[key] = val;
+    }
+  }
+}
 
 const mode = process.argv[2] === "watch" ? "watch" : "dev";
 const cliArgs = process.argv.slice(3);
@@ -93,6 +110,8 @@ if (tailscaleAuth) {
   env.PAPERCLIP_AUTH_BASE_URL_MODE = "auto";
   env.HOST = "0.0.0.0";
   console.log("[paperclip] dev mode: authenticated/private (tailscale-friendly) on 0.0.0.0");
+} else if (env.PAPERCLIP_DEPLOYMENT_MODE === "authenticated") {
+  console.log("[paperclip] dev mode: authenticated (from .env)");
 } else {
   console.log("[paperclip] dev mode: local_trusted (default)");
 }

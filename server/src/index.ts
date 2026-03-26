@@ -450,6 +450,11 @@ export async function startServer(): Promise<StartedServer> {
         "authenticated mode requires BETTER_AUTH_SECRET (or PAPERCLIP_AGENT_JWT_SECRET) to be set",
       );
     }
+    if (!config.adminEmail || !config.adminPassword) {
+      throw new Error(
+        "PAPERCLIP_ADMIN_EMAIL and PAPERCLIP_ADMIN_PASSWORD are required in authenticated mode",
+      );
+    }
     const derivedTrustedOrigins = deriveAuthTrustedOrigins(config);
     const envTrustedOrigins = (process.env.BETTER_AUTH_TRUSTED_ORIGINS ?? "")
       .split(",")
@@ -475,8 +480,12 @@ export async function startServer(): Promise<StartedServer> {
     await initializeBoardClaimChallenge(db as any, { deploymentMode: config.deploymentMode });
     authReady = true;
 
-    // Auto-bootstrap: wrap resolveSession to bootstrap user on first login
+    // Seed superadmin user on startup (idempotent)
     const bootstrap = bootstrapService(db as any);
+    const { hashPassword } = await import("better-auth/crypto");
+    await bootstrap.seedSuperadmin(config.adminEmail!, config.adminPassword!, hashPassword);
+
+    // Auto-bootstrap: wrap resolveSession to bootstrap user on first login
     const originalResolveSession = resolveSession!;
     resolveSession = async (req) => {
       const session = await originalResolveSession(req);
