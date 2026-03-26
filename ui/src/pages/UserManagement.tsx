@@ -31,6 +31,14 @@ const ROLE_COLORS: Record<string, string> = {
   guest: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300",
 };
 
+/** Check if actor can change the target user's role */
+function canActorChangeTarget(actorRole?: string, targetRole?: string): boolean {
+  if (!actorRole || !targetRole) return false;
+  if (actorRole === "superadmin") return true;
+  if (actorRole === "admin") return ["user", "guest"].includes(targetRole);
+  return false;
+}
+
 export default function UserManagement() {
   const { setBreadcrumbs } = useBreadcrumbs();
   const { pushToast } = useToast();
@@ -133,7 +141,7 @@ export default function UserManagement() {
               {ROLE_LABELS[user.role] ?? user.role}
             </span>
             <div className="flex items-center gap-1">
-              {canAssignRole && user.id !== currentUser?.id && (
+              {canAssignRole && user.id !== currentUser?.id && canActorChangeTarget(currentUser?.role, user.role) && (
                 <button
                   onClick={() => setRoleUser(user)}
                   className="rounded p-1 hover:bg-muted"
@@ -142,7 +150,7 @@ export default function UserManagement() {
                   <Shield className="h-4 w-4" />
                 </button>
               )}
-              {canDelete && user.id !== currentUser?.id && user.role !== "superadmin" && (
+              {canDelete && user.id !== currentUser?.id && canActorChangeTarget(currentUser?.role, user.role) && (
                 <button
                   onClick={() => {
                     if (confirm(`Delete user "${user.name}"?`)) {

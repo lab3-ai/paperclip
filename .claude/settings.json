@@ -1,31 +1,5 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(grep -r \"Ask the CEO\\\\|create.*new agent\\\\|CEO to create\" --include=*.tsx --include=*.ts ui/src/)",
-      "Bash(grep -r \"promote.*ceo\\\\|ceo.*promote\\\\|bootstrap.*ceo\\\\|create.*ceo\" --include=*.ts server/src/ ui/src/ packages/)",
-      "Bash(PGPASSWORD=paperclip psql -h localhost -U paperclip -d paperclip -c \"DROP SCHEMA IF EXISTS drizzle CASCADE;\")",
-      "Bash(pnpm db:migrate)",
-      "Bash(grep -n \"Process adapter missing\\\\|missing command\" /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/server/src/adapters/process/*.ts)",
-      "Bash(npx vitest:*)",
-      "Bash(pnpm test:run server/src/__tests__/home-paths.test.ts)",
-      "Bash(pnpm test:run)",
-      "Bash(pnpm -r typecheck)",
-      "Read(//Users/vuongluu/.claude/plugins/cache/superpowers-marketplace/superpowers/5.0.5/skills/subagent-driven-development/**)",
-      "Bash(ls /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/*.config.ts)",
-      "Bash(pnpm db:generate)",
-      "Bash(curl -s http://127.0.0.1:3100/api/health)",
-      "Bash(curl -s http://127.0.0.1:3100/api/users/me)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_click",
-      "mcp__playwright__browser_fill_form",
-      "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_evaluate",
-      "mcp__playwright__browser_console_messages",
-      "mcp__playwright__browser_take_screenshot",
-      "Bash(psql postgres://paperclip:paperclip@localhost:5432/paperclip -c \":*)",
-      "Bash(npx playwright:*)",
-      "Bash(find . -path ./node_modules -prune -o -name \"*.ts\" -type f -exec grep -l \"betterAuth\\\\|better-auth\" {})"
-    ],
     "deny": [
       "Read(./.entire/metadata/**)"
     ]

@@ -120,10 +120,15 @@ export function userManagementService(db: Db) {
     }
 
     const [user] = await db
-      .select({ id: authUsers.id })
+      .select({ id: authUsers.id, role: authUsers.role })
       .from(authUsers)
       .where(eq(authUsers.id, userId));
     if (!user) throw notFound("User not found");
+
+    // Prevent non-superadmins from changing the role of superadmin/admin users
+    if (!canAssignRole(actorRole, user.role as string)) {
+      throw forbidden(`Cannot change role of a ${user.role} user`);
+    }
 
     await db
       .update(authUsers)
