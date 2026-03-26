@@ -1,0 +1,7 @@
+<ide_selection>The user selected the lines 32 to 32 from /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/docs/superpowers/specs/2026-03-24-plugin-publish-config-design.md:
+lab3-ai.plugin-telegram-notifier
+
+This may or may not be related to the current task.</ide_selection>
+Tôi đã có sẵn superadmin như config, tạo sẵn 1 company rồi, có 1 Agent CEO rồi (không qtrong CEO)
+giờ tôi muốn tạo thêm 1 Agent để quản lí 3 plugin (lab3-ai.plugin-x-scanner, lab3-ai.plugin-polymarket-scanner và lab3-ai.plugin-telegram-notifier)  trong @docs/superpowers/specs/2026-03-24-plugin-publish-config-design.md  được không?
+hãy suggest giúp tôi tạo agents mới or skills ra sao để tôi handle manual ở trên UI?
