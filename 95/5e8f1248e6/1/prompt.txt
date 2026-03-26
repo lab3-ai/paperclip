@@ -1,0 +1,31 @@
+/brainstorming Chúng ta đều là BD (business development). CHúng ta sẽ dùng project này để aumation tài sản công ty. Để tạo 1 workflow hoàn chỉnh, mỗi người có thể cống hiến Agents, Skill và Plugin lên đây. BD cũng có thể dùng AI để contribution vào source code bình thường nhé (viết thêm plugin, or cống hiến feature gì đó)
+Tôi muốn hiểu toàn bộ dự án và hiểu cách sử dụng.
+1. Khi nào nên tạo Company?
+2. Khi nào nên tạo Agent? và có các loại Agent nào?
+3. Khi nào nên tạo Plugin, có cái loại Plugin nào? Nên follow framework nào?
+4. Skill sẽ dùng như nào? vào đâu?
+5. Workflow của company như nào?
+6. Workflow của Project như nào? móc nối các agent, skill, plugin như nào?
+7. Kế thừa các agents, plugin của các project như nào?
+Và nên tạo Ví dụ cho các câu trả lời, để tôi hiểu.
+
+---
+
+<ide_opened_file>The user opened the file /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/ui/src/pages/PluginManager.tsx in the IDE. This may or may not be related to the current task.</ide_opened_file>
+A vs B nhé
+
+---
+
+C
+
+---
+
+A, tuy nhiên mỗi người đều tự chạy cá nhân local. Nên chưa kiểm tra được output và tài sản mọi người đã làm.
+
+---
+
+Approach 2
+
+---
+
+OK, tiếp section 2

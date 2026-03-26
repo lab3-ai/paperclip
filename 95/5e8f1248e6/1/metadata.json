@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "955e8f1248e6",
+  "session_id": "f620f014-487e-4a7e-b43c-883b8ca3dba7",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-26T10:32:31.738871Z",
+  "branch": "develop",
+  "checkpoints_count": 6,
+  "files_touched": [
+    ".claude/settings.json",
+    "packages/plugins/examples/plugin-polymarket-scanner/package.json",
+    "packages/plugins/examples/plugin-telegram-notifier/package.json",
+    "packages/plugins/examples/plugin-x-scanner/package.json",
+    "ui/src/pages/PluginManager.tsx"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "b4ad852fed30",
+  "token_usage": {
+    "input_tokens": 27,
+    "cache_creation_tokens": 34534,
+    "cache_read_tokens": 476580,
+    "output_tokens": 7138,
+    "api_call_count": 13
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-26T10:32:31.421772Z",
+    "agent_lines": 16,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 16,
+    "agent_percentage": 100
+  }
+}
