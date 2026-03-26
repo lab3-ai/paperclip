@@ -89,7 +89,7 @@ export function createBetterAuthInstance(db: Db, config: Config, trustedOrigins?
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
-      disableSignUp: config.authDisableSignUp,
+      disableSignUp: true,
     },
     ...(isHttpOnly ? { advanced: { useSecureCookies: false } } : {}),
   };

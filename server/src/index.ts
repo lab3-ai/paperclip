@@ -27,6 +27,7 @@ import { loadConfig } from "./config.js";
 import { logger } from "./middleware/logger.js";
 import { setupLiveEventsWebSocketServer } from "./realtime/live-events-ws.js";
 import { heartbeatService, reconcilePersistedRuntimeServicesOnStartup, routineService } from "./services/index.js";
+import { bootstrapService } from "./services/bootstrap.js";
 import { createStorageServiceFromConfig } from "./storage/index.js";
 import { printStartupBanner } from "./startup-banner.js";
 import { getBoardClaimWarningUrl, initializeBoardClaimChallenge } from "./board-claim.js";
@@ -449,6 +450,11 @@ export async function startServer(): Promise<StartedServer> {
         "authenticated mode requires BETTER_AUTH_SECRET (or PAPERCLIP_AGENT_JWT_SECRET) to be set",
       );
     }
+    if (!config.adminEmail || !config.adminPassword) {
+      throw new Error(
+        "PAPERCLIP_ADMIN_EMAIL and PAPERCLIP_ADMIN_PASSWORD are required in authenticated mode",
+      );
+    }
     const derivedTrustedOrigins = deriveAuthTrustedOrigins(config);
     const envTrustedOrigins = (process.env.BETTER_AUTH_TRUSTED_ORIGINS ?? "")
       .split(",")
@@ -473,6 +479,28 @@ export async function startServer(): Promise<StartedServer> {
     resolveSessionFromHeaders = (headers) => resolveBetterAuthSessionFromHeaders(auth, headers);
     await initializeBoardClaimChallenge(db as any, { deploymentMode: config.deploymentMode });
     authReady = true;
+
+    // Seed superadmin user on startup (idempotent)
+    const bootstrap = bootstrapService(db as any);
+    const { hashPassword } = await import("better-auth/crypto");
+    await bootstrap.seedSuperadmin(config.adminEmail!, config.adminPassword!, hashPassword);
+
+    // Auto-bootstrap: wrap resolveSession to bootstrap user on first login
+    const originalResolveSession = resolveSession!;
+    resolveSession = async (req) => {
+      const session = await originalResolveSession(req);
+      if (session?.user?.id) {
+        try {
+          await bootstrap.maybeBootstrapUser(
+            session.user.id,
+            session.user.name,
+          );
+        } catch (err) {
+          logger.warn({ err, userId: session.user.id }, "Bootstrap check failed (non-fatal)");
+        }
+      }
+      return session;
+    };
   }
   
   const listenPort = await detectPort(config.port);

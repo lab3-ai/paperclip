@@ -70,6 +70,8 @@ export interface Config {
   heartbeatSchedulerEnabled: boolean;
   heartbeatSchedulerIntervalMs: number;
   companyDeletionEnabled: boolean;
+  adminEmail: string | undefined;
+  adminPassword: string | undefined;
 }
 
 export function loadConfig(): Config {
@@ -252,5 +254,7 @@ export function loadConfig(): Config {
     heartbeatSchedulerEnabled: process.env.HEARTBEAT_SCHEDULER_ENABLED !== "false",
     heartbeatSchedulerIntervalMs: Math.max(10000, Number(process.env.HEARTBEAT_SCHEDULER_INTERVAL_MS) || 30000),
     companyDeletionEnabled,
+    adminEmail: process.env.PAPERCLIP_ADMIN_EMAIL?.trim() || undefined,
+    adminPassword: process.env.PAPERCLIP_ADMIN_PASSWORD?.trim() || undefined,
   };
 }

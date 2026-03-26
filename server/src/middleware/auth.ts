@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import type { Request, RequestHandler } from "express";
 import { and, eq, isNull } from "drizzle-orm";
 import type { Db } from "@paperclipai/db";
-import { agentApiKeys, agents, companyMemberships, instanceUserRoles } from "@paperclipai/db";
+import { agentApiKeys, agents, companyMemberships, instanceUserRoles, authUsers } from "@paperclipai/db";
 import { verifyLocalAgentJwt } from "../agent-auth-jwt.js";
 import type { DeploymentMode } from "@paperclipai/shared";
 import type { BetterAuthSessionResult } from "../auth/better-auth.js";
@@ -23,7 +23,7 @@ export function actorMiddleware(db: Db, opts: ActorMiddlewareOptions): RequestHa
   return async (req, _res, next) => {
     req.actor =
       opts.deploymentMode === "local_trusted"
-        ? { type: "board", userId: "local-board", isInstanceAdmin: true, source: "local_implicit" }
+        ? { type: "board", userId: "local-board", isInstanceAdmin: true, source: "local_implicit", role: "superadmin" }
         : { type: "none", source: "none" };
 
     const runIdHeader = req.header("x-paperclip-run-id");
@@ -42,7 +42,7 @@ export function actorMiddleware(db: Db, opts: ActorMiddlewareOptions): RequestHa
         }
         if (session?.user?.id) {
           const userId = session.user.id;
-          const [roleRow, memberships] = await Promise.all([
+          const [roleRow, memberships, userRow] = await Promise.all([
             db
               .select({ id: instanceUserRoles.id })
               .from(instanceUserRoles)
@@ -58,12 +58,18 @@ export function actorMiddleware(db: Db, opts: ActorMiddlewareOptions): RequestHa
                   eq(companyMemberships.status, "active"),
                 ),
               ),
+            db
+              .select({ role: authUsers.role })
+              .from(authUsers)
+              .where(eq(authUsers.id, userId))
+              .then((rows) => rows[0] ?? null),
           ]);
           req.actor = {
             type: "board",
             userId,
             companyIds: memberships.map((row) => row.companyId),
             isInstanceAdmin: Boolean(roleRow),
+            role: userRow?.role ?? "guest",
             runId: runIdHeader ?? undefined,
             source: "session",
           };
@@ -87,11 +93,17 @@ export function actorMiddleware(db: Db, opts: ActorMiddlewareOptions): RequestHa
       const access = await boardAuth.resolveBoardAccess(boardKey.userId);
       if (access.user) {
         await boardAuth.touchBoardApiKey(boardKey.id);
+        const boardKeyUserRow = await db
+          .select({ role: authUsers.role })
+          .from(authUsers)
+          .where(eq(authUsers.id, boardKey.userId))
+          .then((rows) => rows[0] ?? null);
         req.actor = {
           type: "board",
           userId: boardKey.userId,
           companyIds: access.companyIds,
           isInstanceAdmin: access.isInstanceAdmin,
+          role: boardKeyUserRow?.role ?? "guest",
           keyId: boardKey.id,
           runId: runIdHeader || undefined,
           source: "board_key",

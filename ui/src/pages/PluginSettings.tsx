@@ -212,7 +212,17 @@ export function PluginSettings() {
               <div className="space-y-1">
                 <h2 className="text-base font-semibold">Settings</h2>
               </div>
-              {hasCustomSettingsPage ? (
+              {hasConfigSchema && (
+                <PluginConfigForm
+                  pluginId={pluginId!}
+                  schema={configSchema!}
+                  initialValues={configData?.configJson}
+                  isLoading={configLoading}
+                  pluginStatus={plugin.status}
+                  supportsConfigTest={(plugin as unknown as { supportsConfigTest?: boolean }).supportsConfigTest === true}
+                />
+              )}
+              {hasCustomSettingsPage && (
                 <div className="space-y-3">
                   {pluginSlots.map((slot) => (
                     <PluginSlotMount
@@ -226,16 +236,8 @@ export function PluginSettings() {
                     />
                   ))}
                 </div>
-              ) : hasConfigSchema ? (
-                <PluginConfigForm
-                  pluginId={pluginId!}
-                  schema={configSchema!}
-                  initialValues={configData?.configJson}
-                  isLoading={configLoading}
-                  pluginStatus={plugin.status}
-                  supportsConfigTest={(plugin as unknown as { supportsConfigTest?: boolean }).supportsConfigTest === true}
-                />
-              ) : (
+              )}
+              {!hasConfigSchema && !hasCustomSettingsPage && (
                 <p className="text-sm text-muted-foreground">
                   This plugin does not require any settings.
                 </p>
