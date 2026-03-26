@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "039a20f32467",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 9,
+  "files_touched": [
+    ".claude/settings.json",
+    ".env.example",
+    "scripts/dev-runner.mjs",
+    "server/src/auth/better-auth.ts",
+    "server/src/config.ts",
+    "server/src/index.ts",
+    "server/src/services/bootstrap.ts",
+    "ui/src/pages/Auth.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/03/9a20f32467/0/metadata.json",
+      "transcript": "/03/9a20f32467/0/full.jsonl",
+      "content_hash": "/03/9a20f32467/0/content_hash.txt",
+      "prompt": "/03/9a20f32467/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2902,
+    "cache_creation_tokens": 859514,
+    "cache_read_tokens": 33218196,
+    "output_tokens": 118886,
+    "api_call_count": 249
+  }
+}

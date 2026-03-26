@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "039a20f32467",
+  "session_id": "b462e287-1fd0-4c66-b1b2-4054495dec94",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-26T04:28:15.75908Z",
+  "branch": "develop",
+  "checkpoints_count": 9,
+  "files_touched": [
+    ".claude/settings.json",
+    ".env.example",
+    "scripts/dev-runner.mjs",
+    "server/src/auth/better-auth.ts",
+    "server/src/config.ts",
+    "server/src/index.ts",
+    "server/src/services/bootstrap.ts",
+    "ui/src/pages/Auth.tsx"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "f9ce1801d8db",
+  "token_usage": {
+    "input_tokens": 2902,
+    "cache_creation_tokens": 859514,
+    "cache_read_tokens": 33218196,
+    "output_tokens": 118886,
+    "api_call_count": 249
+  },
+  "session_metrics": {
+    "turn_count": 27
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-26T04:28:14.166333Z",
+    "agent_lines": 102,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 102,
+    "agent_percentage": 100
+  }
+}
