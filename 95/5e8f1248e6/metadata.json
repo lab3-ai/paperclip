@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "955e8f1248e6",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "packages/plugins/examples/plugin-polymarket-scanner/package.json",
+    "packages/plugins/examples/plugin-telegram-notifier/package.json",
+    "packages/plugins/examples/plugin-x-scanner/package.json",
+    "ui/src/pages/PluginManager.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/95/5e8f1248e6/0/metadata.json",
+      "transcript": "/95/5e8f1248e6/0/full.jsonl",
+      "content_hash": "/95/5e8f1248e6/0/content_hash.txt",
+      "prompt": "/95/5e8f1248e6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 559,
+    "cache_creation_tokens": 200284,
+    "cache_read_tokens": 8531851,
+    "output_tokens": 39764,
+    "api_call_count": 112
+  }
+}
