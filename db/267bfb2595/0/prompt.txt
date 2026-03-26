@@ -1,0 +1,10 @@
+Tôi đẩy lên server-dev thì mọi thứ đều perfect, mỗi tội không install được plugin. GIờ có cách nào không nhỉ?
+
+---
+
+<ide_selection>The user selected the lines 28 to 28 from /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/Dockerfile:
+build
+
+This may or may not be related to the current task.</ide_selection>
+Đang dùng dockerfile nhé, file này Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/Dockerfile
+Bạn check xem có build chưa nhé
