@@ -8,7 +8,14 @@
       "Bash(npm install:*)",
       "Bash(pnpm --filter @lab3-ai/plugin-x-scanner build)",
       "Bash(pnpm --filter @lab3-ai/plugin-polymarket-scanner build)",
-      "Bash(pnpm --filter @lab3-ai/plugin-telegram-notifier build)"
+      "Bash(pnpm --filter @lab3-ai/plugin-telegram-notifier build)",
+      "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/packages/db/src/schema -name \"*.ts\" -type f -exec basename {})",
+      "Bash(ls -la /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/packages/adapters/*/src/server/)",
+      "Bash(for plugin:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/$plugin/dist/**)",
+      "Bash(done)",
+      "Bash(wc -l /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/server/src/routes/*.ts)"
     ],
     "deny": [
       "Read(./.entire/metadata/**)"

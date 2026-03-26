@@ -1,6 +1,6 @@
 {
   "name": "@lab3-ai/plugin-polymarket-scanner",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scans Polymarket via Gamma API, uses AI to analyze relevance, saves to Supabase, and triggers notifications",
   "type": "module",
   "private": false,
@@ -22,7 +22,7 @@
     "typecheck": "pnpm --filter @paperclipai/plugin-sdk build && tsc --noEmit"
   },
   "dependencies": {
-    "@paperclipai/plugin-sdk": "workspace:*",
+    "@paperclipai/plugin-sdk": "^2026.325.0",
     "@supabase/supabase-js": "^2.49.0"
   },
   "devDependencies": {
