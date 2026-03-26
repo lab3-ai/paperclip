@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "122f5b53b54b",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".claude/settings.json",
+    "packages/plugins/examples/plugin-polymarket-scanner/README.md",
+    "packages/plugins/examples/plugin-polymarket-scanner/package.json",
+    "packages/plugins/examples/plugin-telegram-notifier/README.md",
+    "packages/plugins/examples/plugin-telegram-notifier/package.json",
+    "packages/plugins/examples/plugin-x-scanner/README.md",
+    "packages/plugins/examples/plugin-x-scanner/package.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/12/2f5b53b54b/0/metadata.json",
+      "transcript": "/12/2f5b53b54b/0/full.jsonl",
+      "content_hash": "/12/2f5b53b54b/0/content_hash.txt",
+      "prompt": "/12/2f5b53b54b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 543,
+    "cache_creation_tokens": 189076,
+    "cache_read_tokens": 7522874,
+    "output_tokens": 35402,
+    "api_call_count": 100
+  }
+}

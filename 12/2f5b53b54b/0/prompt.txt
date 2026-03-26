@@ -1,0 +1,37 @@
+Tôi đẩy lên server-dev thì mọi thứ đều perfect, mỗi tội không install được plugin. GIờ có cách nào không nhỉ?
+
+---
+
+<ide_selection>The user selected the lines 28 to 28 from /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/Dockerfile:
+build
+
+This may or may not be related to the current task.</ide_selection>
+Đang dùng dockerfile nhé, file này Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/Dockerfile
+Bạn check xem có build chưa nhé
+
+---
+
+<ide_opened_file>The user opened the file /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/.env in the IDE. This may or may not be related to the current task.</ide_opened_file>
+Vậy còn tôi muốn publish để install như ảnh thì sao bạn?
+
+---
+
+A
+
+---
+
+Tôi đã có @lab3-ai org rồi nhé. TÔi muốn public luôn nha
+
+---
+
+Tôi đã publish hết rồi nhé.
+Có vẻ docs không đúng lắm
+"paperclipai plugin install @paperclipai/plugin-x-scanner"
+cần sửa lại @lab3-ai đúng không?
+hãy sửa lại hết nhé
+
+---
+
+<ide_opened_file>The user opened the file /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/packages/plugins/examples/plugin-polymarket-scanner/README.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+Và cần nâng version mới publish tiếp được nha, sửa version lên 1
+0.1.0 -> 0.1.1
