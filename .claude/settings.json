@@ -5,7 +5,10 @@
       "Bash(npm view:*)",
       "Bash(mkdir -p /tmp/test-plugin-install)",
       "Read(//tmp/**)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(pnpm --filter @lab3-ai/plugin-x-scanner build)",
+      "Bash(pnpm --filter @lab3-ai/plugin-polymarket-scanner build)",
+      "Bash(pnpm --filter @lab3-ai/plugin-telegram-notifier build)"
     ],
     "deny": [
       "Read(./.entire/metadata/**)"

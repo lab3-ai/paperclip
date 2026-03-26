@@ -13,7 +13,7 @@ Paperclip plugin that sends Polymarket alerts to a Telegram group when the Polym
 ## Installation
 
 ```bash
-paperclipai plugin install @paperclipai/plugin-telegram-notifier
+paperclipai plugin install @lab3-ai/plugin-telegram-notifier
 ```
 
 ## Configuration

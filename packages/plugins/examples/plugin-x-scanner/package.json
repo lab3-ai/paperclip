@@ -1,6 +1,6 @@
 {
   "name": "@lab3-ai/plugin-x-scanner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scans X (Twitter) posts from configured members via RapidAPI and saves to Supabase",
   "type": "module",
   "private": false,

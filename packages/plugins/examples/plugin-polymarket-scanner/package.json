@@ -1,6 +1,6 @@
 {
   "name": "@lab3-ai/plugin-polymarket-scanner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scans Polymarket via Gamma API, uses AI to analyze relevance, saves to Supabase, and triggers notifications",
   "type": "module",
   "private": false,

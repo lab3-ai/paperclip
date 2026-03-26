@@ -11,7 +11,7 @@ Paperclip plugin that scans X (Twitter) posts from configured members via RapidA
 ## Installation
 
 ```bash
-paperclipai plugin install @paperclipai/plugin-x-scanner
+paperclipai plugin install @lab3-ai/plugin-x-scanner
 ```
 
 Or install from local path (development):

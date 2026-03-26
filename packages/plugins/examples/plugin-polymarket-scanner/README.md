@@ -11,7 +11,7 @@ Paperclip plugin that scans Polymarket markets via the Gamma API, uses AI to ana
 ## Installation
 
 ```bash
-paperclipai plugin install @paperclipai/plugin-polymarket-scanner
+paperclipai plugin install @lab3-ai/plugin-polymarket-scanner
 ```
 
 ## Supabase Setup
