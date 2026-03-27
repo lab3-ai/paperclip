@@ -8,7 +8,7 @@ import { accessApi } from "../api/access";
 import { assetsApi } from "../api/assets";
 import { queryKeys } from "../lib/queryKeys";
 import { Button } from "@/components/ui/button";
-import { Settings, Check, Download, Upload } from "lucide-react";
+import { Settings, Check, Download, Upload, Copy } from "lucide-react";
 import { CompanyPatternIcon } from "../components/CompanyPatternIcon";
 import {
   Field,
@@ -38,6 +38,7 @@ export function CompanySettings() {
   const [brandColor, setBrandColor] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoUploadError, setLogoUploadError] = useState<string | null>(null);
+  const [idCopied, setIdCopied] = useState(false);
 
   // Sync local state from selected company
   useEffect(() => {
@@ -233,6 +234,36 @@ export function CompanySettings() {
           General
         </div>
         <div className="space-y-3 rounded-md border border-border px-4 py-4">
+          <Field label="Company ID" hint="Use this ID when configuring plugins or calling the API.">
+            <div className="flex items-center gap-2">
+              <input
+                className="flex-1 rounded-md border border-border bg-muted/30 px-2.5 py-1.5 text-sm font-mono outline-none select-all"
+                type="text"
+                value={selectedCompany.id}
+                readOnly
+              />
+              <Button
+                size="sm"
+                variant="ghost"
+                className="shrink-0 px-2"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(selectedCompany.id);
+                    setIdCopied(true);
+                    setTimeout(() => setIdCopied(false), 2000);
+                  } catch {
+                    /* clipboard may not be available */
+                  }
+                }}
+              >
+                {idCopied ? (
+                  <Check className="h-4 w-4 text-green-600" />
+                ) : (
+                  <Copy className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
+            </div>
+          </Field>
           <Field label="Company name" hint="The display name for your company.">
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"

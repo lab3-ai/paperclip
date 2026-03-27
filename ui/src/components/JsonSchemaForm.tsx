@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ChevronDown,
   ChevronRight,
@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCompany } from "@/context/CompanyContext";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -354,6 +355,7 @@ const FieldWrapper = React.memo(({
 FieldWrapper.displayName = "FieldWrapper";
 
 interface FormFieldProps {
+  fieldKey?: string;
   propSchema: JsonSchemaNode;
   value: unknown;
   onChange: (val: unknown) => void;
@@ -643,6 +645,107 @@ const StringField = React.memo(({
 StringField.displayName = "StringField";
 
 /**
+ * Specialized field for selecting a company by ID.
+ * Rendered automatically when a plugin schema field key is "companyId".
+ */
+const CompanySelectField = React.memo(({
+  value,
+  onChange,
+  disabled,
+  label,
+  isRequired,
+  description,
+  error,
+}: {
+  value: unknown;
+  onChange: (val: unknown) => void;
+  disabled: boolean;
+  label: string;
+  isRequired?: boolean;
+  description?: string;
+  error?: string;
+}) => {
+  const { companies, selectedCompanyId } = useCompany();
+  const activeCompanies = useMemo(
+    () => companies.filter((c) => c.status !== "archived"),
+    [companies],
+  );
+
+  // Value priority chain:
+  // 1. Saved value matching a valid (non-archived) company → keep it
+  // 2. Empty/null or references archived/deleted company → default to current company
+  // 3. Single company → auto-select
+  const currentValue = useMemo(() => {
+    const strVal = value ? String(value) : "";
+    if (strVal && activeCompanies.some((c) => c.id === strVal)) {
+      return strVal;
+    }
+    if (selectedCompanyId && activeCompanies.some((c) => c.id === selectedCompanyId)) {
+      return selectedCompanyId;
+    }
+    if (activeCompanies.length === 1) {
+      return activeCompanies[0]!.id;
+    }
+    return "";
+  }, [value, activeCompanies, selectedCompanyId]);
+
+  // Auto-set value when it differs from what's stored
+  useEffect(() => {
+    if (currentValue && currentValue !== String(value ?? "")) {
+      onChange(currentValue);
+    }
+  }, [currentValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (activeCompanies.length === 0) {
+    return (
+      <FieldWrapper
+        label={label}
+        description={description}
+        required={isRequired}
+        error={error}
+        disabled
+      >
+        <Select disabled>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="No companies available" />
+          </SelectTrigger>
+        </Select>
+      </FieldWrapper>
+    );
+  }
+
+  return (
+    <FieldWrapper
+      label={label}
+      description={description}
+      required={isRequired}
+      error={error}
+      disabled={disabled}
+    >
+      <Select
+        value={currentValue}
+        onValueChange={onChange}
+        disabled={disabled}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select a company" />
+        </SelectTrigger>
+        <SelectContent>
+          {activeCompanies.map((company) => (
+            <SelectItem key={company.id} value={company.id}>
+              {company.name}
+              {company.issuePrefix ? ` (${company.issuePrefix})` : ""}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </FieldWrapper>
+  );
+});
+
+CompanySelectField.displayName = "CompanySelectField";
+
+/**
  * Specialized field for array values, handling dynamic addition and removal of items.
  */
 const ArrayField = React.memo(({
@@ -832,6 +935,7 @@ ObjectField.displayName = "ObjectField";
  * Orchestrator component that selects and renders the appropriate field type based on the schema node.
  */
 const FormField = React.memo(({
+  fieldKey,
   propSchema,
   value,
   onChange,
@@ -844,6 +948,21 @@ const FormField = React.memo(({
 }: FormFieldProps) => {
   const type = resolveType(propSchema);
   const isReadOnly = disabled || propSchema.readOnly === true;
+
+  // Key-based override: render company selector for companyId fields
+  if (fieldKey === "companyId" && (type === "string" || type === "enum")) {
+    return (
+      <CompanySelectField
+        value={value}
+        onChange={onChange}
+        disabled={isReadOnly}
+        label={label}
+        isRequired={isRequired}
+        description={propSchema.description}
+        error={error}
+      />
+    );
+  }
 
   switch (type) {
     case "boolean":
@@ -1031,6 +1150,7 @@ export function JsonSchemaForm({
         return (
           <FormField
             key={key}
+            fieldKey={key}
             propSchema={propSchema}
             value={value}
             onChange={(val) => handleFieldChange(key, val)}

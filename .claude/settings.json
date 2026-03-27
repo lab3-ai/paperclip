@@ -15,7 +15,9 @@
       "Bash(do echo:*)",
       "Read(//Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/$plugin/dist/**)",
       "Bash(done)",
-      "Bash(wc -l /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/server/src/routes/*.ts)"
+      "Bash(wc -l /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/server/src/routes/*.ts)",
+      "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip -path */shared/* -name *company* -o -path */packages/shared* -name *company*)",
+      "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/packages/plugins/examples -name \"manifest.ts\" -exec head -120 {} +)"
     ],
     "deny": [
       "Read(./.entire/metadata/**)"
