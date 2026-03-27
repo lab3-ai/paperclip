@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "326d76486d5f",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 9,
+  "files_touched": [
+    ".claude/settings.json",
+    "docs/superpowers/plans/2026-03-27-show-company-id.md",
+    "docs/superpowers/specs/2026-03-27-show-company-id-design.md",
+    "ui/src/components/JsonSchemaForm.tsx",
+    "ui/src/components/__tests__/JsonSchemaForm.test.tsx",
+    "ui/src/pages/CompanySettings.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/32/6d76486d5f/0/metadata.json",
+      "transcript": "/32/6d76486d5f/0/full.jsonl",
+      "content_hash": "/32/6d76486d5f/0/content_hash.txt",
+      "prompt": "/32/6d76486d5f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1934,
+    "cache_creation_tokens": 96891,
+    "cache_read_tokens": 3861029,
+    "output_tokens": 23640,
+    "api_call_count": 61
+  }
+}
