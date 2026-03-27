@@ -1,0 +1,5 @@
+<ide_selection>The user selected the lines 33 to 33 from /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/Dockerfile:
+--frozen-lockfile
+
+This may or may not be related to the current task.</ide_selection>
+Tại sao run CICD lại lỗi nhỉ?

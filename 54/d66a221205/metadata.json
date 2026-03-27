@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "54d66a221205",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude/settings.json",
+    "pnpm-lock.yaml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/54/d66a221205/0/metadata.json",
+      "transcript": "/54/d66a221205/0/full.jsonl",
+      "content_hash": "/54/d66a221205/0/content_hash.txt",
+      "prompt": "/54/d66a221205/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 2613,
+    "cache_read_tokens": 439589,
+    "output_tokens": 1370,
+    "api_call_count": 4
+  }
+}
