@@ -401,8 +401,8 @@ importers:
   packages/plugins/examples/plugin-polymarket-scanner:
     dependencies:
       '@paperclipai/plugin-sdk':
-        specifier: workspace:*
-        version: link:../../sdk
+        specifier: ^2026.325.0
+        version: 2026.325.0(react@19.2.4)
       '@supabase/supabase-js':
         specifier: ^2.49.0
         version: 2.100.0
@@ -432,8 +432,8 @@ importers:
   packages/plugins/examples/plugin-telegram-notifier:
     dependencies:
       '@paperclipai/plugin-sdk':
-        specifier: workspace:*
-        version: link:../../sdk
+        specifier: ^2026.325.0
+        version: 2026.325.0(react@19.2.4)
       '@supabase/supabase-js':
         specifier: ^2.49.0
         version: 2.100.0
@@ -463,8 +463,8 @@ importers:
   packages/plugins/examples/plugin-x-scanner:
     dependencies:
       '@paperclipai/plugin-sdk':
-        specifier: workspace:*
-        version: link:../../sdk
+        specifier: ^2026.325.0
+        version: 2026.325.0(react@19.2.4)
       '@supabase/supabase-js':
         specifier: ^2.49.0
         version: 2.100.0
@@ -2130,6 +2130,18 @@ packages:
 
   '@paperclipai/adapter-utils@0.3.1':
     resolution: {integrity: sha512-W66k+hJkQE8ma0asM/Sd90AC8HHy/BLG/sd0aOC+rDWw+gOasQyUkTnDoPv1zhQuTyKEEvLFV6ByOOKqEiAz/A==}
+
+  '@paperclipai/plugin-sdk@2026.325.0':
+    resolution: {integrity: sha512-axAIK90QVrRihlCXcGoePDc0qaf0weqOwUagWsp88v6T2NXAWXALCzFtY4IipPnaVli6xZe5ZsuC+gTlPXhMKQ==}
+    hasBin: true
+    peerDependencies:
+      react: '>=18'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
+  '@paperclipai/shared@2026.325.0':
+    resolution: {integrity: sha512-l0ZeaQhswxjAyJ6G/TdgyrfbEgFKqdkly4zn4QgOPCu+x8j8Gma51Xf45M2Br3ILJlIx93HhT3hAzWKChdxgMg==}
 
   '@paralleldrive/cuid2@2.3.1':
     resolution: {integrity: sha512-XO7cAxhnTZl0Yggq6jOgjiOHhbgcO4NqFqwSmQpjK3b6TEE6Uj/jfSk6wzYyemh3+I0sHirKSetjQwn5cZktFw==}
@@ -7860,6 +7872,17 @@ snapshots:
   '@open-draft/deferred-promise@2.2.0': {}
 
   '@paperclipai/adapter-utils@0.3.1': {}
+
+  '@paperclipai/plugin-sdk@2026.325.0(react@19.2.4)':
+    dependencies:
+      '@paperclipai/shared': 2026.325.0
+      zod: 3.25.76
+    optionalDependencies:
+      react: 19.2.4
+
+  '@paperclipai/shared@2026.325.0':
+    dependencies:
+      zod: 3.25.76
 
   '@paralleldrive/cuid2@2.3.1':
     dependencies:
