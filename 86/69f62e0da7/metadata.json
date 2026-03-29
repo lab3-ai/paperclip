@@ -1,0 +1,39 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "8669f62e0da7",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".claude/settings.json",
+    "docs/superpowers/plans/2026-03-27-coingecko-scanner-market-analysis.md",
+    "docs/superpowers/specs/2026-03-27-coingecko-scanner-market-analysis-design.md",
+    "docs/superpowers/specs/2026-03-27-paperclip-bd-guide-design.md",
+    "packages/plugins/examples/plugin-coingecko-scanner/package.json",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/coingecko.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/index.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/manifest.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/types.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/ui/index.tsx",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/worker.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/tsconfig.json",
+    "pnpm-lock.yaml",
+    "server/src/routes/plugins.ts",
+    "skills/market-analysis/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/86/69f62e0da7/0/metadata.json",
+      "transcript": "/86/69f62e0da7/0/full.jsonl",
+      "content_hash": "/86/69f62e0da7/0/content_hash.txt",
+      "prompt": "/86/69f62e0da7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 332,
+    "cache_creation_tokens": 191205,
+    "cache_read_tokens": 10484874,
+    "output_tokens": 68740,
+    "api_call_count": 106
+  }
+}

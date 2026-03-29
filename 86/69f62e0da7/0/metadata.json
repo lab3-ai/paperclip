@@ -1,0 +1,47 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "8669f62e0da7",
+  "session_id": "f620f014-487e-4a7e-b43c-883b8ca3dba7",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-29T16:00:55.892092Z",
+  "branch": "develop",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".claude/settings.json",
+    "docs/superpowers/plans/2026-03-27-coingecko-scanner-market-analysis.md",
+    "docs/superpowers/specs/2026-03-27-coingecko-scanner-market-analysis-design.md",
+    "docs/superpowers/specs/2026-03-27-paperclip-bd-guide-design.md",
+    "packages/plugins/examples/plugin-coingecko-scanner/package.json",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/coingecko.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/index.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/manifest.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/types.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/ui/index.tsx",
+    "packages/plugins/examples/plugin-coingecko-scanner/src/worker.ts",
+    "packages/plugins/examples/plugin-coingecko-scanner/tsconfig.json",
+    "pnpm-lock.yaml",
+    "server/src/routes/plugins.ts",
+    "skills/market-analysis/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "c16065024d20",
+  "token_usage": {
+    "input_tokens": 332,
+    "cache_creation_tokens": 191205,
+    "cache_read_tokens": 10484874,
+    "output_tokens": 68740,
+    "api_call_count": 106
+  },
+  "session_metrics": {
+    "turn_count": 14
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-29T16:00:54.195154Z",
+    "agent_lines": 2659,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2659,
+    "agent_percentage": 100
+  }
+}
