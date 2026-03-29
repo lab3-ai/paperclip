@@ -163,6 +163,14 @@ const BUNDLED_PLUGIN_EXAMPLES: AvailablePluginExample[] = [
     localPath: "packages/plugins/examples/plugin-telegram-notifier",
     tag: "example",
   },
+  {
+    packageName: "@lab3-ai/plugin-coingecko-scanner",
+    pluginKey: "lab3-ai.plugin-coingecko-scanner",
+    displayName: "CoinGecko Scanner",
+    description: "Scans crypto market data from CoinGecko — prices, trends, volume alerts",
+    localPath: "packages/plugins/examples/plugin-coingecko-scanner",
+    tag: "example",
+  },
 ];
 
 function listBundledPluginExamples(): AvailablePluginExample[] {

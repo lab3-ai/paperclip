@@ -18,7 +18,10 @@
       "Bash(wc -l /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/server/src/routes/*.ts)",
       "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip -path */shared/* -name *company* -o -path */packages/shared* -name *company*)",
       "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip/packages/plugins/examples -name \"manifest.ts\" -exec head -120 {} +)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip -name plugin-loader.ts -o -name loadAll* -o -name *bootstrap*plugin*)",
+      "Bash(find /Users/vuongluu/Documents/jobs/lab3/paperclip/paperclip -type f \\\\\\(-name *migration* -o -name *seed* \\\\\\) -path */db/*)",
+      "Bash(pnpm build:*)"
     ],
     "deny": [
       "Read(./.entire/metadata/**)"
